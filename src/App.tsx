@@ -3,6 +3,7 @@ import { OnlineStatusProvider } from './online-status/OnlineStatusProvider'
 import { VFlow } from 'bold-ui'
 import { HeaderBar } from './components/HeaderBar'
 import { PushNotificationsAlert } from './components/PushNotificationsAlert'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import { AuthProvider } from './login/context/AuthProvider'
 
 function App() {
@@ -18,5 +19,7 @@ function App() {
     </OnlineStatusProvider>
   )
 }
+
+serviceWorkerRegistration.register()
 
 export default App
