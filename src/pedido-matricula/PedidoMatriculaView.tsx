@@ -8,10 +8,11 @@ import { GradeHorarios } from '../grade-horarios/GradeHorarios'
 import { TurmaMatriculada } from '../grade-horarios/model'
 import { OnlyOnlineFeature } from '../components/OnlyOnlineFeature'
 import { useOnlineStatus } from '../online-status/useOnlineStatus'
-import { POLLING_TIME_IN_MS } from '../registrar-pedido-matricula/model'
 import { convertTurmasMatriculadasToHorariosSelecionados } from '../registrar-pedido-matricula/util'
 import { EDITAR_PEDIDO_MATRICULA_ROUTE } from '../routes/routes'
 import { StatusPedidoMatricula } from './StatusPedidoMatricula'
+
+const POLLING_TIME = Number(process.env.REACT_APP_POLLING_TIME_IN_MS)
 
 export function PedidoMatriculaView() {
   const [turmasMatriculadas, setTurmasMatriculadas] = useState<TurmaMatriculada[]>([])
@@ -32,7 +33,7 @@ export function PedidoMatriculaView() {
   // Ref: https://thewebdev.info/2021/05/29/how-to-poll-an-api-periodically-with-react/
   useEffect(() => {
     let timer
-    if (isOnline) timer = setInterval(getPedidoMatricula, POLLING_TIME_IN_MS)
+    if (isOnline) timer = setInterval(getPedidoMatricula, POLLING_TIME)
     return () => clearInterval(timer)
   }, [getPedidoMatricula, isOnline])
 

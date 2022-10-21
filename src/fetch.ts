@@ -1,7 +1,5 @@
 import { getAccessToken } from './local-storage'
 
-const SERVER_URL = 'http://localhost:8080'
-
 export const HTTP_STATUS_OK = 200
 export const HTTP_STATUS_VALIDATION_EXCEPTION = 400
 
@@ -15,7 +13,7 @@ export interface ServerValidationError<DataType> {
 
 export function fetchWithAuthorization(fetchUrl: string, options?: RequestInit): Promise<Response> {
   const accessToken = getAccessToken()
-  return fetch(`${SERVER_URL}/${fetchUrl}`, {
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/${fetchUrl}`, {
     ...options,
     headers: { Authorization: `Bearer ${accessToken}`, ...options?.headers },
   })
@@ -23,7 +21,7 @@ export function fetchWithAuthorization(fetchUrl: string, options?: RequestInit):
 
 // TODO : Adicionar mais uma função com post + authorization
 export function fetchPostWithJsonBodyAndWithoutAuthorization(fetchUrl: string, body: any): Promise<Response> {
-  return fetch(`${SERVER_URL}/${fetchUrl}`, {
+  return fetch(`${process.env.REACT_APP_SERVER_URL}/${fetchUrl}`, {
     method: 'POST',
     body: JSON.stringify(body),
     headers: {

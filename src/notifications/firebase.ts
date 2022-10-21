@@ -1,17 +1,14 @@
 import { initializeApp } from 'firebase/app'
 import { getMessaging } from 'firebase/messaging'
 
-export const PUBLIC_VAPID_KEY =
-  'BKeDin_xnLD8OmBUskj2lOxYfTDVTDvVOvQCQg3nwJvlaRKzadOOq0LcvG1hW8hPDxLSqdluei-Fl17AGN-cRGk'
-
 // https://firebase.google.com/docs/web/setup
 const firebaseConfig = {
-  apiKey: 'AIzaSyAP_Nr9rkSJ0g7hvQKbjQI9UH_Jy6kK_u0',
-  authDomain: 'matricula-ufsc.firebaseapp.com',
-  projectId: 'matricula-ufsc',
-  storageBucket: 'matricula-ufsc.appspot.com',
-  messagingSenderId: '544318734893',
-  appId: '1:544318734893:web:5f826baad5a07047f32ea4',
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID,
 }
 
 // Initialize Firebase

@@ -1,6 +1,6 @@
 import { getToken } from 'firebase/messaging'
 import { fetchWithAuthorization } from '../fetch'
-import { messaging, PUBLIC_VAPID_KEY } from './firebase'
+import { messaging } from './firebase'
 
 export function requestPermission(setIsNotificationAllowed: (status: boolean) => void) {
   if (!window.Notification) {
@@ -34,7 +34,7 @@ function subscribeUser(setIsNotificationAllowed: (status: boolean) => void) {
   console.debug('[subscribe] subscribeUser')
   navigator.serviceWorker.ready.then(() => {
     getToken(messaging, {
-      vapidKey: PUBLIC_VAPID_KEY,
+      vapidKey: process.env.REACT_APP_PUBLIC_VAPID_KEY,
     }).then((token) => {
       console.debug(`[subscribe] Enviando token do firebase para o servidor...`)
       fetchWithAuthorization('subscribe', {
