@@ -14,15 +14,6 @@ import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching'
 import { registerRoute } from 'workbox-routing'
 import { StaleWhileRevalidate } from 'workbox-strategies'
 
-export function registerServiceWorker() {
-  if (navigator.serviceWorker) {
-    const serviceWorkerURL = `${process.env.PUBLIC_URL}/serviceWorker.js`
-    navigator.serviceWorker.register(serviceWorkerURL).then(() => {
-      console.info('[service-worker.ts] serviceWorker.js registrado')
-    })
-  }
-}
-
 declare const self: ServiceWorkerGlobalScope
 
 clientsClaim()
