@@ -10,7 +10,7 @@ import { OnlyOnlineFeature } from '../components/OnlyOnlineFeature'
 import { useOnlineStatus } from '../online-status/useOnlineStatus'
 import { convertTurmasMatriculadasToHorariosSelecionados } from '../registrar-pedido-matricula/util'
 import { EDITAR_PEDIDO_MATRICULA_ROUTE } from '../routes/routes'
-import { StatusPedidoMatricula } from './StatusPedidoMatricula'
+import { EspelhoPedidoMatricula } from './EspelhoPedidoMatricula'
 
 const POLLING_TIME = Number(process.env.REACT_APP_POLLING_TIME_IN_MS)
 
@@ -64,10 +64,10 @@ export function PedidoMatriculaView() {
         </VFlow>
       </Cell>
       <Cell size={12}>
-        <Heading level={2}>Acompanhamento</Heading>
+        <Heading level={2}>Espelho de matrícula</Heading>
       </Cell>
       <Cell size={12}>
-        <StatusPedidoMatricula turmasMatriculadas={turmasMatriculadas} />
+        <EspelhoPedidoMatricula turmasMatriculadas={turmasMatriculadas} />
       </Cell>
       <OnlyOnlineFeature>
         <Cell size={12}>
@@ -82,7 +82,7 @@ export function PedidoMatriculaView() {
         <Heading level={2}>Grade de horários</Heading>
       </Cell>
       <Cell size={12}>
-        <GradeHorarios horariosSelecionados={horariosSelecionados} />
+        <GradeHorarios horariosSelecionados={horariosSelecionados} showSala />
       </Cell>
     </Grid>
   )

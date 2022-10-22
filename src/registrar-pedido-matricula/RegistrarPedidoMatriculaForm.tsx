@@ -3,29 +3,25 @@ import { Decorator } from 'final-form'
 import createDecorator from 'final-form-calculate'
 import { useMemo } from 'react'
 import { FormRenderProps } from 'react-final-form'
-import { ErrorField } from '../components/fields/ErrorField'
 import { fetchWithAuthorization } from '../fetch'
 import { calculator } from './calculator'
 import { GradeHorarios, GradeHorariosProps } from '../grade-horarios/GradeHorarios'
-import { SelectTurmaField, SelectTurmaFieldModel } from './components/SelectTurmaField'
-import { HORARIOS_FIELD_NAME, TURMAS_FIELD_NAME } from './model'
-import { HorariosSelecionados, TurmaMatriculada } from '../grade-horarios/model'
+import { SelectTurmaField } from './components/SelectTurmaField'
+import { RegistrarPedidoMatriculaFormModel, TURMAS_FIELD_NAME } from './model'
+import { Turma } from '../grade-horarios/model'
 import { Form } from '../components/Form'
 import { PEDIDO_MATRICULA_ROUTE } from '../routes/routes'
 import { useNavigate } from 'react-router-dom'
 import { VoltarButton } from '../components/VoltarButton'
+import { LimitesInfo, LimitesInfoProps } from './components/LimitesInfo'
+import { calcularCargaHorariaTotal } from './util'
 
-export interface RegistrarPedidoMatriculaFormModel {
-  turmas: SelectTurmaFieldModel[]
-  horarios: HorariosSelecionados
-}
-
-interface RegistrarPedidoMatriculaFormProps extends GradeHorariosProps {
-  turmasMatriculadas: TurmaMatriculada[]
+interface RegistrarPedidoMatriculaFormProps extends GradeHorariosProps, LimitesInfoProps {
+  turmasMatriculadas: Turma[]
 }
 
 export function RegistrarPedidoMatriculaForm(props: RegistrarPedidoMatriculaFormProps) {
-  const { turmasMatriculadas, horariosSelecionados, ...gradeHorariosProps } = props
+  const { turmasMatriculadas, horariosSelecionados, ...limitesInfoProps } = props
 
   const navigate = useNavigate()
 
@@ -41,19 +37,14 @@ export function RegistrarPedidoMatriculaForm(props: RegistrarPedidoMatriculaForm
   const handleSubmitSuccess = () => navigate(PEDIDO_MATRICULA_ROUTE)
 
   const renderForm = (formProps: FormRenderProps<RegistrarPedidoMatriculaFormModel>) => {
-    const {
-      form: { getFieldState },
-      handleSubmit,
-    } = formProps
-
-    const horariosSelecionados = getFieldState(HORARIOS_FIELD_NAME)?.value
+    const { handleSubmit } = formProps
 
     return (
       <Grid justifyContent='center' alignItems='center' style={{ margin: '1rem' }}>
         <Cell size={12}>
           <VoltarButton path={PEDIDO_MATRICULA_ROUTE} />
           <Heading level={1}>Editando pedido de matrícula</Heading>
-          <ErrorField name={HORARIOS_FIELD_NAME} />
+          <LimitesInfo {...limitesInfoProps} />
         </Cell>
         <Cell size={12}>
           <SelectTurmaField name={TURMAS_FIELD_NAME} />
@@ -67,7 +58,8 @@ export function RegistrarPedidoMatriculaForm(props: RegistrarPedidoMatriculaForm
         </Cell>
         <Cell size={12}>
           <VFlow>
-            <GradeHorarios horariosSelecionados={horariosSelecionados} {...gradeHorariosProps} />
+            <Heading level={2}>Grade de horários</Heading>
+            <GradeHorarios horariosSelecionados={horariosSelecionados} />
           </VFlow>
         </Cell>
       </Grid>
@@ -86,8 +78,9 @@ export function RegistrarPedidoMatriculaForm(props: RegistrarPedidoMatriculaForm
 
   const initialValues: RegistrarPedidoMatriculaFormModel = useMemo(
     () => ({
-      turmas: turmasMatriculadas.map((turmaMatriculada) => turmaMatriculada.turma),
+      turmas: turmasMatriculadas,
       horarios: horariosSelecionados,
+      cargaHorariaTotal: calcularCargaHorariaTotal(turmasMatriculadas),
     }),
     [horariosSelecionados, turmasMatriculadas]
   )

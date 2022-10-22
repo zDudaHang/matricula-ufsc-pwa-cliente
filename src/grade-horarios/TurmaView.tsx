@@ -1,19 +1,29 @@
-import { VFlow, Text, TextProps } from 'bold-ui'
+import { Text, VFlow } from 'bold-ui'
 import { TurmaGradeHorarioModel } from './model'
 
-interface TurmaViewProps extends Pick<TextProps, 'color'> {
+export interface TurmaViewProps {
   turma: TurmaGradeHorarioModel
+  hasConflito: boolean
+  showSala?: boolean
 }
 
 export function TurmaView(props: TurmaViewProps) {
-  const { color, turma } = props
+  const { hasConflito, turma, showSala = false } = props
 
-  return (
-    <VFlow vSpacing={0}>
-      <Text fontWeight='bold' color={color}>
+  if (showSala) {
+    return (
+      <VFlow vSpacing={0}>
+        <Text fontWeight='bold'>
+          {turma.codigoDisciplina} - {turma.codigoTurma}
+        </Text>
+        <Text>{turma.sala}</Text>
+      </VFlow>
+    )
+  } else {
+    return (
+      <Text fontWeight='bold' color={hasConflito ? 'danger' : 'normal'}>
         {turma.codigoDisciplina} - {turma.codigoTurma}
       </Text>
-      <Text color={color}>{turma.sala}</Text>
-    </VFlow>
-  )
+    )
+  }
 }

@@ -1,12 +1,15 @@
 import { Calculation } from 'final-form-calculate'
 import { TurmaGradeHorarioModel } from '../grade-horarios/model'
 import { SelectTurmaFieldModel } from './components/SelectTurmaField'
-import { TURMAS_FIELD_NAME } from './model'
-import { RegistrarPedidoMatriculaFormModel } from './RegistrarPedidoMatriculaForm'
+import { RegistrarPedidoMatriculaFormModel, TURMAS_FIELD_NAME } from './model'
+import { calcularCargaHorariaTotal } from './util'
 
 export const calculator = (): Calculation => ({
   field: TURMAS_FIELD_NAME,
   updates: {
+    cargaHorariaTotal: (turmasSelecionadas: SelectTurmaFieldModel[]) => {
+      return calcularCargaHorariaTotal(turmasSelecionadas)
+    },
     horarios: (
       turmasSelecionadas: SelectTurmaFieldModel[],
       { horarios }: RegistrarPedidoMatriculaFormModel,

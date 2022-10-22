@@ -1,4 +1,4 @@
-import { HorariosSelecionados, TurmaGradeHorarioModel, TurmaMatriculada } from '../grade-horarios/model'
+import { HorariosSelecionados, Turma, TurmaGradeHorarioModel, TurmaMatriculada } from '../grade-horarios/model'
 
 export function convertTurmasMatriculadasToHorariosSelecionados(
   turmas: TurmaMatriculada[],
@@ -42,4 +42,8 @@ export function convertTurmasMatriculadasToHorariosSelecionados(
   })
 
   return horariosSelecionados
+}
+
+export function calcularCargaHorariaTotal(turmas: Turma[]) {
+  return turmas.reduce((prev, curr) => prev + curr.disciplina.cargaHoraria, 0)
 }

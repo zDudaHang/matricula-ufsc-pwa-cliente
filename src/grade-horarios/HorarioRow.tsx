@@ -1,8 +1,9 @@
 import { TableRow, TableCell, useTheme } from 'bold-ui'
 import { DiaSemana, Horario, HorariosSelecionados } from './model'
 import { TurmasRow } from './TurmasRow'
+import { TurmaViewProps } from './TurmaView'
 
-interface HorarioRowProps {
+interface HorarioRowProps extends Pick<TurmaViewProps, 'showSala'> {
   horario: Horario
   diasSemana: DiaSemana[]
   horariosSelecionados: HorariosSelecionados
@@ -13,6 +14,7 @@ export function HorarioRow(props: HorarioRowProps) {
     horario: { id: horarioId, horario, isUltimoHorarioPeriodo },
     diasSemana,
     horariosSelecionados,
+    ...turmaViewProps
   } = props
 
   const theme = useTheme()
@@ -33,6 +35,7 @@ export function HorarioRow(props: HorarioRowProps) {
           turmas={horariosSelecionados?.get(horarioId)?.get(diaSemanaId)}
           horarioId={horarioId}
           diaSemanaId={diaSemanaId}
+          {...turmaViewProps}
         />
       ))}
     </TableRow>

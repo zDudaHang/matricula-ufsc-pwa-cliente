@@ -2,11 +2,11 @@ import { DataTable } from 'bold-ui'
 import { TurmaMatriculada } from '../grade-horarios/model'
 import { renderDisciplinaTurma, renderPosicao, renderProfessor, renderStatus } from './renders'
 
-interface StatusPedidoMatriculaProps {
+interface EspelhoPedidoMatriculaProps {
   turmasMatriculadas: TurmaMatriculada[]
 }
 
-export function StatusPedidoMatricula(props: StatusPedidoMatriculaProps) {
+export function EspelhoPedidoMatricula(props: EspelhoPedidoMatriculaProps) {
   const { turmasMatriculadas } = props
 
   return (
