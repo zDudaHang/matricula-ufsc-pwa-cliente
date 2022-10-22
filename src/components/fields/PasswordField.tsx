@@ -5,19 +5,17 @@ interface PasswordFieldProps extends Pick<TextFieldProps, 'label' | 'placeholder
   name: string
 }
 
+// TODO: Deixar só como 'password' para esconder a senha
 export function PasswordField(props: PasswordFieldProps) {
   const { input, meta } = useField(props.name)
-  // const [mustHideText, setMustHideText] = useState<boolean>(true)
 
   return (
     <TextField
       {...props}
       error={meta.error || meta.submitError}
-      // type={mustHideText ? 'password' : 'text'}
+      type='password'
       value={input.value}
       onChange={input.onChange}
-      // icon={mustHideText ? 'eyeHiddenFilled' : 'eyeFilled'}
-      // onIconClick={() => setMustHideText(!mustHideText)}
       clearable={false}
     />
   )
