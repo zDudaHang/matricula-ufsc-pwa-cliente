@@ -1,28 +1,27 @@
 import { TableCell, VFlow, useTheme } from 'bold-ui'
 import { TurmaGradeHorarioModel } from './model'
-import { TurmaView, TurmaViewProps } from './TurmaView'
+import { TurmaView } from './TurmaView'
 
-interface TurmasRowProps extends Pick<TurmaViewProps, 'showSala'> {
+interface TurmasRowProps {
   turmas: TurmaGradeHorarioModel[]
   horarioId: number
   diaSemanaId: number
 }
 
 export function TurmasRow(props: TurmasRowProps) {
-  const { turmas, diaSemanaId, horarioId, ...turmaViewProps } = props
+  const { turmas, diaSemanaId, horarioId } = props
 
   const theme = useTheme()
 
-  if (turmas) {
+  if (turmas && turmas.length > 0) {
     const hasConflito = turmas.length > 1
 
     return (
-      <TableCell style={{ textAlign: 'center' }}>
+      <TableCell style={{ textAlign: 'center', border: `1px solid ${theme.pallete.gray.c80}` }}>
         <VFlow vSpacing={0}>
           {turmas.map((turma) => (
             <TurmaView
               key={`turma-${turma.codigoTurma}-${horarioId}-${diaSemanaId}`}
-              {...turmaViewProps}
               hasConflito={hasConflito}
               turma={turma}
             />

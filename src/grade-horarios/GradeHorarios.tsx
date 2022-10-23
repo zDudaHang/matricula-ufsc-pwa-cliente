@@ -3,15 +3,14 @@ import { useState, useEffect } from 'react'
 import { fetchWithAuthorization } from '../fetch'
 import { HorarioRow } from './HorarioRow'
 import { DiaSemana, Horario, HorariosSelecionados } from './model'
-import { TurmaViewProps } from './TurmaView'
 
-export interface GradeHorariosProps extends Pick<TurmaViewProps, 'showSala'> {
+export interface GradeHorariosProps {
   horariosSelecionados: HorariosSelecionados
 }
 
 // TODO: Deixar esse componente visivel sem internet -> Cenarios: o usuario jah ter logado e nao ter logado
 export function GradeHorarios(props: GradeHorariosProps) {
-  const { horariosSelecionados, ...turmaViewProps } = props
+  const { horariosSelecionados } = props
 
   const theme = useTheme()
 
@@ -53,7 +52,6 @@ export function GradeHorarios(props: GradeHorariosProps) {
             horario={horario}
             diasSemana={diasSemana}
             horariosSelecionados={horariosSelecionados}
-            {...turmaViewProps}
           />
         ))}
       </TableBody>

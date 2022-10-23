@@ -82,7 +82,7 @@ export function PedidoMatriculaView() {
         <Heading level={2}>Grade de horários</Heading>
       </Cell>
       <Cell size={12}>
-        <GradeHorarios horariosSelecionados={horariosSelecionados} showSala />
+        <GradeHorarios horariosSelecionados={horariosSelecionados} />
       </Cell>
     </Grid>
   )

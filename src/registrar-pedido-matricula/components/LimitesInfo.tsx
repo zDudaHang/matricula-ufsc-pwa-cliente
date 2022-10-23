@@ -21,7 +21,7 @@ export function LimitesInfo(props: LimitesInfoProps) {
         Um pedido de matrícula é considerado válido quando <strong>não possui conflito de horários</strong> e cuja carga
         horária total está entre <strong>{limitesCargaHoraria.minima} H/A</strong> e{' '}
         <strong>{limitesCargaHoraria.maxima} H/A</strong>. A carga horária total do seu pedido é{' '}
-        <strong>{cargaHorariaTotal}</strong>
+        <strong>{cargaHorariaTotal} H/A</strong>
       </Alert>
     )
   )
