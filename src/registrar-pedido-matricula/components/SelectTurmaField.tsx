@@ -11,7 +11,6 @@ const renderItem = (turma: SelectTurmaFieldModel) => {
     disciplina,
     professor: { nome: nomeProfessor },
     codigo,
-    vagasOfertadas,
   } = turma
 
   return (
@@ -20,7 +19,6 @@ const renderItem = (turma: SelectTurmaFieldModel) => {
         {disciplina.nome} ({disciplina.codigo}) - Turma {codigo}
       </Text>
       <HFlow>Professor: {nomeProfessor}</HFlow>
-      <HFlow>Vagas ofertadas: {vagasOfertadas}</HFlow>
       <HFlow>Carga horária: {disciplina.cargaHoraria} horas aula (H/A)</HFlow>
     </VFlow>
   )

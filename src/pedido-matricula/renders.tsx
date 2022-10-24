@@ -31,7 +31,7 @@ export const renderPosicao = ({ turma, posicao }: TurmaMatriculada) => {
 
   return (
     <Text>
-      {rank}º lugar {isVagaPossivel ? `dentre ${turma.vagasOfertadas}` : 'na fila de espera'}
+      {rank}º lugar {isVagaPossivel ? `de ${turma.vagasOfertadas}` : 'na fila de espera'}
     </Text>
   )
 }
