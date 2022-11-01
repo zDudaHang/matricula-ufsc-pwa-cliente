@@ -1,28 +1,13 @@
-import { Button, Heading, HFlow, Icon, Text, useTheme } from 'bold-ui'
-import { requestPermission, unsubscribeUser } from '../notifications/subscribe'
+import { Heading, HFlow, useTheme } from 'bold-ui'
 import { useInstall } from '../install/useInstall'
 import { OnlyOnlineFeature } from './OnlyOnlineFeature'
-import { useAuthContext } from '../login/context/useAuthContext'
 import { OnlyAuthenticatedFeature } from './OnlyAuthenticatedFeature'
+import { NotificationsButton } from './header-bar/NotificationsButton'
+import { InstallButton } from './header-bar/InstallButton'
 
 export function HeaderBar() {
   const theme = useTheme()
-  const { auth, setIsNotificationAllowedAuthUser } = useAuthContext()
   const { deferredPrompt, reset } = useInstall()
-  const isNotificationAllowed = auth?.isNotificationAllowed ?? false
-
-  const handleNotificationsClick = () => {
-    if (isNotificationAllowed) unsubscribeUser(setIsNotificationAllowedAuthUser)
-    else requestPermission(setIsNotificationAllowedAuthUser)
-  }
-
-  // https://www.amitmerchant.com/adding-custom-install-button-in-progressive-web-apps/
-  const handleDownloadClick = async () => {
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    console.debug(`[HeaderBar] userChoice: ${outcome}`)
-    if (outcome === 'accepted') reset()
-  }
 
   return (
     <HFlow
@@ -35,25 +20,8 @@ export function HeaderBar() {
       </Heading>{' '}
       <OnlyAuthenticatedFeature>
         <OnlyOnlineFeature>
-          <Button onClick={handleNotificationsClick} skin='ghost' size='large'>
-            <HFlow hSpacing={0.25} alignItems='center'>
-              <Icon
-                icon={isNotificationAllowed ? 'bellFilled' : 'bellOutline'}
-                style={{ color: theme.pallete.gray.c100 }}
-              />
-              <Text style={{ color: theme.pallete.gray.c100 }}>
-                {isNotificationAllowed ? 'Desativar' : 'Ativar'} notificações
-              </Text>
-            </HFlow>
-          </Button>
-          {deferredPrompt && (
-            <Button onClick={handleDownloadClick} skin='ghost' size='large'>
-              <HFlow hSpacing={0.25} alignItems='center'>
-                <Icon icon='download' style={{ color: theme.pallete.gray.c100 }} />
-                <Text style={{ color: theme.pallete.gray.c100 }}>Instalar</Text>
-              </HFlow>
-            </Button>
-          )}
+          <NotificationsButton theme={theme} />
+          {deferredPrompt && <InstallButton deferredPrompt={deferredPrompt} reset={reset} theme={theme} />}
         </OnlyOnlineFeature>
       </OnlyAuthenticatedFeature>
     </HFlow>

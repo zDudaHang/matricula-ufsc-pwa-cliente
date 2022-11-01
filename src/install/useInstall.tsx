@@ -12,7 +12,7 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<UserChoiceModel>
 }
 
-interface UseInstallResult {
+export interface UseInstallResult {
   deferredPrompt: BeforeInstallPromptEvent
   reset(): void
 }
