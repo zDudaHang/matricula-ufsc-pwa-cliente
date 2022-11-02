@@ -20,10 +20,14 @@ export function ApplicationRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={LOGIN_ROUTE} element={<LoginForm />}>
-          <Route path=':nomeUsuario' element={<LoginForm />} />
-        </Route>
-        <Route path={REGISTAR_ALUNO_ROUTE} element={<RegistrarAlunoForm />} />
+        {isOnline && (
+          <>
+            <Route path={LOGIN_ROUTE} element={<LoginForm />}>
+              <Route path=':nomeUsuario' element={<LoginForm />} />
+            </Route>
+            <Route path={REGISTAR_ALUNO_ROUTE} element={<RegistrarAlunoForm />} />
+          </>
+        )}
         <Route
           path={PEDIDO_MATRICULA_ROUTE}
           element={

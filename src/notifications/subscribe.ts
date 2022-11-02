@@ -4,30 +4,30 @@ import { messaging } from './firebase'
 
 export function requestPermission(updateStates: (status: boolean, loading: boolean) => void) {
   if (!window.Notification) {
-    alert('The browser does not support notifications')
+    alert('O navegador não suporta notificações :(')
     updateStates(false, false)
   } else {
     const permission = Notification.permission
     if (permission === 'default') {
-      console.debug('[subscribe] Permissao default')
+      console.debug('[subscribe] Permissão default')
       Notification.requestPermission().then((status) => {
         if (status === 'denied') {
           alert(
-            'You have denied permission for notifications. Please go to your browser or mobile settings and enable notifications'
+            'Você revogou a permissão para notificações. Por favor, habilite as notificações pelo navegador ou dispositivo.'
           )
           updateStates(false, false)
         } else if (status === 'granted') {
-          console.debug('[subscribe] Permissao garantida')
+          console.debug('[subscribe] Permissão granted')
           subscribeUser(updateStates)
         }
       })
     } else if (permission === 'denied') {
       alert(
-        'You have denied permission for notifications. Please go to your browser or mobile settings and enable notifications'
+        'Você revogou a permissão para notificações. Por favor, habilite as notificações pelo navegador ou dispositivo.'
       )
       updateStates(false, false)
     } else {
-      console.debug('[subscribe] Permissao garantida')
+      console.debug('[subscribe] Permissão já granted')
       subscribeUser(updateStates)
     }
   }

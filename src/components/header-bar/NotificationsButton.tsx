@@ -1,4 +1,4 @@
-import { Button, HFlow, Icon, Text, Theme } from 'bold-ui'
+import { Button, HFlow, Icon, Spinner, Text, Theme } from 'bold-ui'
 import { useState } from 'react'
 import { useAuthContext } from '../../login/context/useAuthContext'
 import { unsubscribeUser, requestPermission } from '../../notifications/subscribe'
@@ -26,12 +26,22 @@ export function NotificationsButton(props: NotificationsButtonProps) {
   }
 
   return (
-    <Button onClick={handleNotificationsClick} skin='ghost' size='large' loading={isLoading}>
+    <Button onClick={handleNotificationsClick} skin='ghost' size='large' disabled={isLoading}>
       <HFlow hSpacing={0.25} alignItems='center'>
         <Icon icon={isNotificationAllowed ? 'bellFilled' : 'bellOutline'} style={{ color: theme.pallete.gray.c100 }} />
-        <Text style={{ color: theme.pallete.gray.c100 }}>
-          {isNotificationAllowed ? 'Desativar' : 'Ativar'} notificações
-        </Text>
+        {isLoading ? (
+          <HFlow alignItems='center'>
+            <Text style={{ color: theme.pallete.gray.c100 }}>
+              {' '}
+              {isNotificationAllowed ? 'Desativando' : 'Ativando'} ...
+            </Text>
+            <Spinner size={1} style={{ color: theme.pallete.gray.c100 }} />
+          </HFlow>
+        ) : (
+          <Text style={{ color: theme.pallete.gray.c100 }}>
+            {isNotificationAllowed ? 'Desativar' : 'Ativar'} notificações
+          </Text>
+        )}
       </HFlow>
     </Button>
   )
