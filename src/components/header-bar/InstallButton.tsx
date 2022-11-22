@@ -1,19 +1,23 @@
 import { Button, HFlow, Icon, Text, Theme } from 'bold-ui'
-import { UseInstallResult } from '../../install/useInstall'
+import { useInstall } from '../../install/useInstall'
 
-interface InstallButtonProps extends UseInstallResult {
+interface InstallButtonProps {
   theme: Theme
 }
 
 export function InstallButton(props: InstallButtonProps) {
-  const { deferredPrompt, reset, theme } = props
+  const { theme } = props
+
+  const { deferredPrompt, reset } = useInstall()
 
   // Baseado em: https://www.amitmerchant.com/adding-custom-install-button-in-progressive-web-apps/
   const handleDownloadClick = async () => {
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    console.debug(`[HeaderBar] userChoice: ${outcome}`)
-    if (outcome === 'accepted') reset()
+    if (deferredPrompt) {
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+      console.debug(`[HeaderBar] userChoice: ${outcome}`)
+      if (outcome === 'accepted') reset()
+    } else alert('Ops, parece que o seu navegador não tem suporte para instalar :(')
   }
 
   return (

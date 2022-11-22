@@ -1,5 +1,4 @@
 import { Heading, HFlow, useTheme } from 'bold-ui'
-import { useInstall } from '../install/useInstall'
 import { OnlyOnlineFeature } from './OnlyOnlineFeature'
 import { OnlyAuthenticatedFeature } from './OnlyAuthenticatedFeature'
 import { NotificationsButton } from './header-bar/NotificationsButton'
@@ -7,7 +6,6 @@ import { InstallButton } from './header-bar/InstallButton'
 
 export function HeaderBar() {
   const theme = useTheme()
-  const { deferredPrompt, reset } = useInstall()
 
   return (
     <HFlow
@@ -21,7 +19,7 @@ export function HeaderBar() {
       <OnlyAuthenticatedFeature>
         <OnlyOnlineFeature>
           <NotificationsButton theme={theme} />
-          {deferredPrompt && <InstallButton deferredPrompt={deferredPrompt} reset={reset} theme={theme} />}
+          <InstallButton theme={theme} />
         </OnlyOnlineFeature>
       </OnlyAuthenticatedFeature>
     </HFlow>

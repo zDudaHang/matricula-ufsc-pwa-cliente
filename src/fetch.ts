@@ -19,6 +19,11 @@ export function fetchWithAuthorization(fetchUrl: string, options?: RequestInit):
   })
 }
 
+export function defaultErrorHandler(reason: any) {
+  alert('Ops, algo deu errado :(\nTente novamente mais tarde')
+  console.error(reason)
+}
+
 // TODO : Adicionar mais uma função com post + authorization
 export function fetchPostWithJsonBodyAndWithoutAuthorization(fetchUrl: string, body: any): Promise<Response> {
   return fetch(`${process.env.REACT_APP_SERVER_URL}/${fetchUrl}`, {

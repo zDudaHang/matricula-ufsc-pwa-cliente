@@ -1,5 +1,5 @@
 import { getToken } from 'firebase/messaging'
-import { fetchWithAuthorization } from '../fetch'
+import { defaultErrorHandler, fetchWithAuthorization } from '../fetch'
 import { messaging } from './firebase'
 
 export function requestPermission(updateStates: (status: boolean, loading: boolean) => void) {
@@ -53,7 +53,7 @@ function subscribeUser(updateStates: (status: boolean, loading: boolean) => void
             updateStates(true, false)
           }
         })
-        .catch(console.error)
+        .catch(defaultErrorHandler)
     })
   })
 }
@@ -69,5 +69,5 @@ export function unsubscribeUser(updateStates: (status: boolean, loading: boolean
         updateStates(false, false)
       }
     })
-    .catch(console.error)
+    .catch(defaultErrorHandler)
 }
