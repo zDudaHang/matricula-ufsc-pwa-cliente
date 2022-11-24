@@ -35,7 +35,7 @@ export function PushNotificationsAlert() {
     showAlert &&
     message && (
       <Alert
-        style={{ position: 'fixed', width: '100%', top: 0, zIndex: 1 }}
+        style={{ position: 'fixed', width: '100%', top: 0, zIndex: 1, padding: 0 }}
         type={message.type}
         onCloseClick={() => setShowAlert(false)}
       >
