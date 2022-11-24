@@ -7,7 +7,7 @@ import { AuthProvider } from './login/context/AuthProvider'
 
 function App() {
   return (
-    <div style={{ width: 'fit-content' }}>
+    <div style={{ width: '100%' }}>
       <OnlineStatusProvider>
         <AuthProvider>
           <VFlow vSpacing={0}>

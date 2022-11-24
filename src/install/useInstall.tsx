@@ -26,12 +26,17 @@ export function useInstall(): UseInstallResult {
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault()
+      setIsInstalled(false)
       setDeferredPrompt(e as BeforeInstallPromptEvent)
       console.debug(`[useInstall] beforeinstallprompt event was fired`)
     })
 
     window.addEventListener('appinstalled', (evt) => {
       setIsInstalled(true)
+    })
+
+    window.addEventListener('appuninstalled', (evt) => {
+      console.log('desinstalado')
     })
 
     return () => {
