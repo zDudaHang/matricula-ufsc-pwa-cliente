@@ -1,4 +1,4 @@
-import { HFlow, isEqual, Select, Text, VFlow } from 'bold-ui'
+import { HFlow, isEqual, Select, SelectDownshiftRenderProps, Text, VFlow } from 'bold-ui'
 import { useEffect, useState } from 'react'
 import { useField } from 'react-final-form'
 import { fetchWithAuthorization } from '../../fetch'
@@ -24,8 +24,23 @@ const renderItem = (turma: SelectTurmaFieldModel) => {
   )
 }
 
-const itemToString = (turma: SelectTurmaFieldModel) =>
-  `${turma?.disciplina.nome} (${turma?.disciplina.codigo}) - ${turma?.codigo}, ${turma?.professor.nome}`
+const handleFilterChange = (filter: string, downshift: SelectDownshiftRenderProps<SelectTurmaFieldModel>) => {
+  const items = downshift.items
+  if (filter) {
+    const filteredItems = items.filter(
+      (turma) =>
+        turma.codigo.toLowerCase().includes(filter.toLocaleLowerCase()) ||
+        turma.professor.nome.toLowerCase().includes(filter.toLocaleLowerCase()) ||
+        turma.disciplina.nome.toLowerCase().includes(filter.toLocaleLowerCase()) ||
+        turma.disciplina.codigo.toLowerCase().includes(filter.toLocaleLowerCase())
+    )
+    downshift.setVisibleItems(filteredItems)
+  } else {
+    downshift.setVisibleItems(items)
+  }
+}
+
+const itemToString = (turma: SelectTurmaFieldModel) => `${turma?.disciplina.codigo} - ${turma?.codigo}`
 
 const itemIsEqual = (turmaA: SelectTurmaFieldModel, turmaB: SelectTurmaFieldModel) =>
   isEqual(turmaA?.codigo, turmaB?.codigo)
@@ -56,6 +71,7 @@ export function SelectTurmaField(props: SelectTurmaFieldProps) {
       itemIsEqual={itemIsEqual}
       multiple
       required
+      onFilterChange={handleFilterChange}
     />
   )
 }
