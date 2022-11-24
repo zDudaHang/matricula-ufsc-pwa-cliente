@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { isInstalled, setIsInstalled } from '../local-storage'
 
 type InstallPromptUserChoice = 'dismissed' | 'accepted'
 
@@ -14,6 +15,7 @@ interface BeforeInstallPromptEvent extends Event {
 
 export interface UseInstallResult {
   deferredPrompt: BeforeInstallPromptEvent
+  isInstalled: boolean
   reset(): void
 }
 
@@ -26,14 +28,21 @@ export function useInstall(): UseInstallResult {
       e.preventDefault()
       setDeferredPrompt(e as BeforeInstallPromptEvent)
       console.debug(`[useInstall] beforeinstallprompt event was fired`)
-      return () => {
-        window.removeEventListener('beforeinstallprompt', () => {})
-      }
     })
+
+    window.addEventListener('appinstalled', (evt) => {
+      setIsInstalled(true)
+    })
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', () => {})
+      window.removeEventListener('appinstalled', () => {})
+    }
   }, [])
 
   return {
     deferredPrompt,
     reset: () => setDeferredPrompt(null),
+    isInstalled: isInstalled(),
   }
 }

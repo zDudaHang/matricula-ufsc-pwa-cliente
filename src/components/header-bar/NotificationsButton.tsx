@@ -26,7 +26,7 @@ export function NotificationsButton(props: NotificationsButtonProps) {
   }
 
   return (
-    <Button onClick={handleNotificationsClick} skin='ghost' size='large' disabled={isLoading}>
+    <Button onClick={handleNotificationsClick} skin='ghost' disabled={isLoading}>
       <HFlow hSpacing={0.25} alignItems='center'>
         <Icon icon={isNotificationAllowed ? 'bellFilled' : 'bellOutline'} style={{ color: theme.pallete.gray.c100 }} />
         {isLoading ? (

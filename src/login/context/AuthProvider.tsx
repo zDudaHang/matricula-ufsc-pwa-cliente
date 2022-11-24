@@ -7,6 +7,7 @@ export interface AuthContextModel {
   auth: AuthUser
   setAuth(iaa: number, isNotificationAllowed: boolean): void
   setIsNotificationAllowedAuthUser(isNotificationAllowed: boolean): void
+  reset(): void
 }
 
 interface AuthProviderProps {
@@ -26,7 +27,12 @@ export function AuthProvider(props: AuthProviderProps) {
 
   return (
     <AuthContext.Provider
-      value={{ auth, setAuth: handleUpdate, setIsNotificationAllowedAuthUser: handleUpdateIsNotificationAllowed }}
+      value={{
+        auth,
+        setAuth: handleUpdate,
+        setIsNotificationAllowedAuthUser: handleUpdateIsNotificationAllowed,
+        reset: () => setAuth(null),
+      }}
     >
       {props.children}
     </AuthContext.Provider>

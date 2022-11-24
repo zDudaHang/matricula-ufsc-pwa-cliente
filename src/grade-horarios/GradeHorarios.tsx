@@ -19,6 +19,7 @@ export function GradeHorarios(props: GradeHorariosProps) {
     color: theme.pallete.gray.c100,
     position: 'sticky',
     top: 0,
+    zIndex: 0,
   }
 
   const [horarios, setHorarios] = useState<Horario[]>([])

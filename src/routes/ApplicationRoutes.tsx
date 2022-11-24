@@ -13,12 +13,14 @@ import { PedidoMatriculaView } from '../pedido-matricula/PedidoMatriculaView'
 import { RegistrarPedidoMatriculaView } from '../registrar-pedido-matricula/RegistrarPedidoMatriculaView'
 import { NotFound } from './NotFound'
 import { useOnlineStatus } from '../online-status/useOnlineStatus'
+import { HeaderBar } from '../components/HeaderBar'
 
 export function ApplicationRoutes() {
   const isOnline = useOnlineStatus()
 
   return (
     <BrowserRouter>
+      <HeaderBar />
       <Routes>
         {isOnline && (
           <>

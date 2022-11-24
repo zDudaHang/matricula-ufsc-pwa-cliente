@@ -3,9 +3,12 @@ import { OnlyOnlineFeature } from './OnlyOnlineFeature'
 import { OnlyAuthenticatedFeature } from './OnlyAuthenticatedFeature'
 import { NotificationsButton } from './header-bar/NotificationsButton'
 import { InstallButton } from './header-bar/InstallButton'
+import { LogoutButton } from './header-bar/LogoutButton'
+import { useInstall } from '../install/useInstall'
 
 export function HeaderBar() {
   const theme = useTheme()
+  const { isInstalled, ...rest } = useInstall()
 
   return (
     <HFlow
@@ -13,14 +16,15 @@ export function HeaderBar() {
       justifyContent='center'
       alignItems='center'
     >
-      <Heading level={1} style={{ color: theme.pallete.gray.c100 }}>
+      <Heading style={{ color: theme.pallete.gray.c100 }} level={3}>
         Matrícula UFSC
-      </Heading>{' '}
+      </Heading>
       <OnlyAuthenticatedFeature>
         <OnlyOnlineFeature>
           <NotificationsButton theme={theme} />
-          <InstallButton theme={theme} />
+          {!isInstalled && <InstallButton theme={theme} {...rest} />}
         </OnlyOnlineFeature>
+        <LogoutButton theme={theme} />
       </OnlyAuthenticatedFeature>
     </HFlow>
   )
