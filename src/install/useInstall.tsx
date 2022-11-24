@@ -35,10 +35,6 @@ export function useInstall(): UseInstallResult {
       setIsInstalled(true)
     })
 
-    window.addEventListener('appuninstalled', (evt) => {
-      console.log('desinstalado')
-    })
-
     return () => {
       window.removeEventListener('beforeinstallprompt', () => {})
       window.removeEventListener('appinstalled', () => {})
