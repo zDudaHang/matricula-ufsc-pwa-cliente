@@ -14,43 +14,46 @@ import { RegistrarPedidoMatriculaView } from '../registrar-pedido-matricula/Regi
 import { NotFound } from './NotFound'
 import { useOnlineStatus } from '../online-status/useOnlineStatus'
 import { HeaderBar } from '../components/HeaderBar'
+import { VFlow } from 'bold-ui'
 
 export function ApplicationRoutes() {
   const isOnline = useOnlineStatus()
 
   return (
     <BrowserRouter>
-      <HeaderBar />
-      <Routes>
-        {isOnline && (
-          <>
-            <Route path={LOGIN_ROUTE} element={<LoginForm />}>
-              <Route path=':nomeUsuario' element={<LoginForm />} />
-            </Route>
-            <Route path={REGISTAR_ALUNO_ROUTE} element={<RegistrarAlunoForm />} />
-          </>
-        )}
-        <Route
-          path={PEDIDO_MATRICULA_ROUTE}
-          element={
-            <PrivateRoute>
-              <PedidoMatriculaView />
-            </PrivateRoute>
-          }
-        />
-        {isOnline && (
+      <VFlow>
+        <HeaderBar />
+        <Routes>
+          {isOnline && (
+            <>
+              <Route path={LOGIN_ROUTE} element={<LoginForm />}>
+                <Route path=':nomeUsuario' element={<LoginForm />} />
+              </Route>
+              <Route path={REGISTAR_ALUNO_ROUTE} element={<RegistrarAlunoForm />} />
+            </>
+          )}
           <Route
-            path={EDITAR_PEDIDO_MATRICULA_ROUTE}
+            path={PEDIDO_MATRICULA_ROUTE}
             element={
               <PrivateRoute>
-                <RegistrarPedidoMatriculaView />
+                <PedidoMatriculaView />
               </PrivateRoute>
             }
           />
-        )}
-        <Route path={NOT_FOUND_ROUTE} element={<NotFound />} />
-        <Route path='*' element={<Navigate to={NOT_FOUND_ROUTE} />} />
-      </Routes>
+          {isOnline && (
+            <Route
+              path={EDITAR_PEDIDO_MATRICULA_ROUTE}
+              element={
+                <PrivateRoute>
+                  <RegistrarPedidoMatriculaView />
+                </PrivateRoute>
+              }
+            />
+          )}
+          <Route path={NOT_FOUND_ROUTE} element={<NotFound />} />
+          <Route path='*' element={<Navigate to={NOT_FOUND_ROUTE} />} />
+        </Routes>
+      </VFlow>
     </BrowserRouter>
   )
 }

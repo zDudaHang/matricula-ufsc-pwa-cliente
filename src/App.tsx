@@ -7,16 +7,14 @@ import { AuthProvider } from './login/context/AuthProvider'
 
 function App() {
   return (
-    <div style={{ width: '100%' }}>
-      <OnlineStatusProvider>
-        <AuthProvider>
-          <VFlow vSpacing={0}>
-            <PushNotificationsAlert />
-            <ApplicationRoutes />
-          </VFlow>
-        </AuthProvider>
-      </OnlineStatusProvider>
-    </div>
+    <OnlineStatusProvider>
+      <AuthProvider>
+        <VFlow vSpacing={0}>
+          <PushNotificationsAlert />
+          <ApplicationRoutes />
+        </VFlow>
+      </AuthProvider>
+    </OnlineStatusProvider>
   )
 }
 

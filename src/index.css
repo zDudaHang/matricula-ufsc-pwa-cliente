@@ -6,6 +6,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+div#root {
+  min-width: min-content;
+  max-width: 100%;
+}
+
 code {
   font-family: 'IBM Plex Sans', sans-serif;
   font-size: 0.8125rem;
