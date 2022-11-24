@@ -24,7 +24,8 @@ const renderItem = (turma: SelectTurmaFieldModel) => {
   )
 }
 
-const itemToString = (turma: SelectTurmaFieldModel) => `${turma?.disciplina.codigo} - ${turma?.codigo}`
+const itemToString = (turma: SelectTurmaFieldModel) =>
+  `${turma?.disciplina.nome} (${turma?.disciplina.codigo}) - ${turma?.codigo}, ${turma?.professor.nome}`
 
 const itemIsEqual = (turmaA: SelectTurmaFieldModel, turmaB: SelectTurmaFieldModel) =>
   isEqual(turmaA?.codigo, turmaB?.codigo)
@@ -55,7 +56,6 @@ export function SelectTurmaField(props: SelectTurmaFieldProps) {
       itemIsEqual={itemIsEqual}
       multiple
       required
-      autoComplete='false'
     />
   )
 }
