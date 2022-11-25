@@ -15,13 +15,14 @@ import { useNavigate } from 'react-router-dom'
 import { VoltarButton } from '../components/VoltarButton'
 import { LimitesInfo, LimitesInfoProps } from './components/LimitesInfo'
 import { calcularCargaHorariaTotal } from './util'
+import { CargaHorariaTotalInfo } from './CargaHorariaTotalInfo'
 
 interface RegistrarPedidoMatriculaFormProps extends GradeHorariosProps, LimitesInfoProps {
   turmasMatriculadas: Turma[]
 }
 
 export function RegistrarPedidoMatriculaForm(props: RegistrarPedidoMatriculaFormProps) {
-  const { turmasMatriculadas, horariosSelecionados, ...limitesInfoProps } = props
+  const { turmasMatriculadas, horariosSelecionados, limitesCargaHoraria } = props
 
   const navigate = useNavigate()
 
@@ -44,14 +45,17 @@ export function RegistrarPedidoMatriculaForm(props: RegistrarPedidoMatriculaForm
         <Cell size={12}>
           <VoltarButton path={PEDIDO_MATRICULA_ROUTE} />
           <Heading level={1}>Editando pedido de matrícula</Heading>
-          <LimitesInfo {...limitesInfoProps} />
+          <LimitesInfo limitesCargaHoraria={limitesCargaHoraria} />
         </Cell>
         <Cell size={12}>
-          <SelectTurmaField name={TURMAS_FIELD_NAME} />
+          <VFlow>
+            <CargaHorariaTotalInfo limitesCargaHoraria={limitesCargaHoraria} />
+            <SelectTurmaField name={TURMAS_FIELD_NAME} />
+          </VFlow>
         </Cell>
         <Cell size={12}>
           <HFlow justifyContent='flex-end'>
-            <Button type='submit' kind='primary' onClick={handleSubmit} size='large'>
+            <Button type='submit' kind='primary' onClick={handleSubmit}>
               Salvar
             </Button>
           </HFlow>

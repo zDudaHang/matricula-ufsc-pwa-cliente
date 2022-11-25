@@ -72,7 +72,7 @@ export function PedidoMatriculaView() {
       <OnlyOnlineFeature>
         <Cell size={12}>
           <HFlow justifyContent='flex-end'>
-            <ButtonLink path={EDITAR_PEDIDO_MATRICULA_ROUTE} kind='primary' size='large' isAbsolutePath>
+            <ButtonLink path={EDITAR_PEDIDO_MATRICULA_ROUTE} kind='primary' isAbsolutePath>
               Editar pedido de matrícula
             </ButtonLink>
           </HFlow>
