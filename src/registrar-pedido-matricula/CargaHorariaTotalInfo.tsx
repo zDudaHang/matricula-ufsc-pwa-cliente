@@ -15,7 +15,7 @@ export function CargaHorariaTotalInfo(props: CargaHorariaTotalInfoProps) {
     input: { value: cargaHorariaTotal },
   } = useField<number>(FIELD_NAME, { subscription: { value: true } })
 
-  if (cargaHorariaTotal && limitesCargaHoraria) {
+  if (limitesCargaHoraria) {
     const isDentroLimite =
       cargaHorariaTotal <= limitesCargaHoraria.maxima && cargaHorariaTotal >= limitesCargaHoraria.minima
 
